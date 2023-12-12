@@ -5,8 +5,26 @@ use rand::thread_rng;
 
 
 
+
+
 fn validate_string(word: String, secret: String) -> [i8;5] {
     let mut validated_word: [i8;5] = [0,0,0,0,0];
+
+    match ler_palavras_do_arquivo("C:\\Users\\Eduli\\novaspalavras.txt") {
+        Ok(palavras) => {
+            // Faça algo com as palavras, por exemplo, imprimir
+            if palavra_existe(word, &palavras) {
+                println!("A palavra '{}' foi encontrada no arquivo.", palavra_para_comparar);
+            } else {
+                println!("A palavra '{}' não foi encontrada no arquivo.", palavra_para_comparar);
+            }
+        },
+        Err(e) => {
+            // Trate o erro, por exemplo, imprimir uma mensagem de erro
+            println!("Erro ao ler o arquivo: {}", e);
+        }
+    }
+    
 
     for i in 0..5 {
         // num_string.chars().nth(i).unwrap()
@@ -49,4 +67,22 @@ pub fn palavra_aleatoria() -> String {
         Some(word) => word.to_string(),
         None => "Nenhuma palavra encontrada".to_string(),
     }
+}
+
+fn ler_palavras_do_arquivo(file_path: &str) -> io::Result<Vec<String>> {
+    let file = File::open(file_path)?;
+    let reader = io::BufReader::new(file);
+
+    let mut words = Vec::new();
+    for line in reader.lines() {
+        let line = line?;
+        words.push(line);
+    }
+
+    Ok(words)
+}
+
+
+fn palavra_existe(palavra: &str, palavras: &[String]) -> bool {
+    palavras.contains(&palavra.to_string())
 }
