@@ -1,5 +1,6 @@
 use yew::prelude::*;
-
+use service::palavra_aleatoria;
+mod service;
 #[function_component]
 fn App() -> Html {
     html! {
@@ -82,5 +83,9 @@ fn App() -> Html {
 }
 
 fn main() {
+    let x = service::palavra_aleatoria();
+    println!("x e igual a {:?}", x);
     yew::Renderer::<App>::new().render();
+
 }
+
