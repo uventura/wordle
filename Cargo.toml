@@ -9,3 +9,4 @@ readme = "README.md"
 
 [dependencies]
 yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
+rand = "0.8"
