@@ -2,6 +2,8 @@ use std::ops::DerefMut;
 
 use yew::prelude::*;
 use gloo::console::log;
+use lazy_static::lazy_static;
+use std::sync::Mutex;
 mod service;
 
 use service::*;
@@ -14,8 +16,17 @@ fn init_answers() -> [i8; 5] {
     return [-1,-1,-1,-1,-1];
 }
 
+// global variable
+lazy_static! {
+    static ref SECRET: Mutex<String> = Mutex::new(service::palavra_aleatoria());
+}
+
 #[function_component]
 fn App() -> Html {
+    let secret = service::palavra_aleatoria();
+    // log!(SECRET);
+    log!(serde_json::to_string_pretty(&*SECRET).unwrap());
+
     let answers = use_state(|| [init_answers(),init_answers(),init_answers(),init_answers(),init_answers(),init_answers()]);
 
     // keyboard array
@@ -54,7 +65,7 @@ fn App() -> Html {
         
         let join_word: String = clonned_words[*clonned_line].iter().collect();
         log!(&*join_word);
-        let mut result = service::validate_string(join_word, "TESTE".to_owned());
+        let mut result = service::validate_string(join_word, secret.to_owned());
 
         let mut new_word = *clonned_answers;
         new_word[*clonned_line] = result;
@@ -165,5 +176,6 @@ fn App() -> Html {
 }
 
 fn main() {
+    // let SECRET = service::palavra_aleatoria();
     yew::Renderer::<App>::new().render();
 }
