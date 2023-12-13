@@ -5,7 +5,7 @@ use rand::seq::{SliceRandom, IteratorRandom};
 use rand::thread_rng;
 
 pub fn validate_string(word: String, secret: String) -> [i8;5] {
-    let mut validated_word: [i8;5] = [0,0,0,0,0];
+    let mut validated_word: [i8;5] = [-1,-1,-1,-1,-1];
 
     if !verificar_palavra_existe(word.to_ascii_lowercase().clone()) {
         return  validated_word;
