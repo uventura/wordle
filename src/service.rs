@@ -4,19 +4,17 @@ use rand::seq::SliceRandom;
 use rand::thread_rng;
 
 
-
-
-
-fn validate_string(word: String, secret: String) -> [i8;5] {
+pub fn validate_string(word: String, secret: String) -> [i8;5] {
     let mut validated_word: [i8;5] = [0,0,0,0,0];
 
     match ler_palavras_do_arquivo("C:\\Users\\Eduli\\novaspalavras.txt") {
         Ok(palavras) => {
             // Faça algo com as palavras, por exemplo, imprimir
-            if palavra_existe(word, &palavras) {
-                println!("A palavra '{}' foi encontrada no arquivo.", palavra_para_comparar);
+            if palavra_existe(&word, &palavras) {
+                println!("A palavra '{}' foi encontrada no arquivo.", word);
             } else {
-                println!("A palavra '{}' não foi encontrada no arquivo.", palavra_para_comparar);
+                println!("A palavra '{}' não foi encontrada no arquivo.", word);
+                return -1
             }
         },
         Err(e) => {
