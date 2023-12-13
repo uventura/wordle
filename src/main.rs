@@ -1,6 +1,11 @@
 use yew::prelude::*;
 use service::palavra_aleatoria;
+use service::validate_string;
 mod service;
+mod db;
+use rusqlite::Connection;
+use crate::db::{update_palavra_do_dia, get_palavra_do_dia};
+
 #[function_component]
 fn App() -> Html {
     html! {
@@ -82,10 +87,16 @@ fn App() -> Html {
     }
 }
 
-fn main() {
-    let x = service::palavra_aleatoria();
-    println!("x e igual a {:?}", x);
-    yew::Renderer::<App>::new().render();
 
+fn main() -> Result<(), rusqlite::Error> {
+    let conn = Connection::open("meu_banco_de_dados.db")?;
+    // insert_palavra_do_dia(&conn, "PalavraExemplo")?;
+    let nova_palavra = service::palavra_aleatoria();  // Trate o Result
+    update_palavra_do_dia(&conn, 1, &nova_palavra)?;
+    let resultado = validate_string("caaaa".to_string(), get_palavra_do_dia(&conn, 1)?);
+    println!("o resultado atual é: {:?}", resultado);
+    yew::Renderer::<App>::new().render();
+    Ok(())
 }
+
 
