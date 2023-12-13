@@ -675,7 +675,7 @@ async function __wbg_init(input) {
     if (wasm !== undefined) return wasm;
 
     if (typeof input === 'undefined') {
-        input = new URL('wordle-fc3ce27006568c92_bg.wasm', import.meta.url);
+        input = new URL('wordle-ca79fbc1a623b224_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

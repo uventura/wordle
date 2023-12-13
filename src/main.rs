@@ -61,6 +61,10 @@ fn App() -> Html {
         clonned_answers.set(new_word);
 
         clonned_col.set(0);
+
+        if *clonned_line >= 5 {
+            return;
+        }
         let new_line =  clonned_line.clone();
         clonned_line.set(*new_line+1);
     });
