@@ -51,16 +51,20 @@
             display: flex;
         }
 
-        .item-correct {
+        .item-2 {
             background-color:#6ca965;
         }
 
-        .item-wrong-position {
+        .item-1 {
             background-color: #c8b653;
         }
 
-        .item-wrong {
+        .item-0 {
             background-color: #000;
+        }
+
+        .item--1 {
+            background-color: #787c7f;
         }
 
         .keyboard {
@@ -103,12 +107,12 @@
         }
     </style>
 
-<link rel="preload" href="/wordle-7dfe7afdc987d57e_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/wordle-7dfe7afdc987d57e.js"></head>
+<link rel="preload" href="/wordle-fc3ce27006568c92_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/wordle-fc3ce27006568c92.js"></head>
 <body>
 
 
-<script type="module">import init from '/wordle-7dfe7afdc987d57e.js';init('/wordle-7dfe7afdc987d57e_bg.wasm');</script><script>(function () {
+<script type="module">import init from '/wordle-fc3ce27006568c92.js';init('/wordle-fc3ce27006568c92_bg.wasm');</script><script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;
