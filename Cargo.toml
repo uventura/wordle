@@ -9,4 +9,5 @@ readme = "README.md"
 
 [dependencies]
 yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
-rand = "0.8"
+rand = "0.8.5"
+rusqlite = { version = "0.26.3", features = ["bundled"] }
