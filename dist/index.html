@@ -105,14 +105,75 @@
         .key-enter {
             width: 65px;
         }
+        
+        .win-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        h1 {
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .button {
+            background-color: #f44336;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .tentativas {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .tentativa {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: rgb(255, 255, 255);
+        }
+        .perdeu {
+            background-color: red;
+        }
+        /* Marque a tentativa de vitória com uma cor diferente, exemplo: 3ª tentativa */
+        /* .tentativa:nth-child(3) {
+            background-color: yellow;
+        }
+        .tentativa:nth-child(2) {
+            background-color: yellow;
+        } */
+        .tentativa-final {
+            background-color: rgb(154, 233, 129);
+        }
+        /* .tentativa:nth-child(4) {
+            background-color: yellow;
+        }
+        .tentativa:nth-child(5) {
+            background-color: yellow;
+        }
+        .tentativa:nth-child(6) {
+            background-color: yellow;
+        } */
     </style>
 
-<link rel="preload" href="/wordle-735774f35db40ff7_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/wordle-735774f35db40ff7.js"></head>
+<link rel="preload" href="/wordle-6ed23df11ca9d53b_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/wordle-6ed23df11ca9d53b.js"></head>
 <body>
 
 
-<script type="module">import init from '/wordle-735774f35db40ff7.js';init('/wordle-735774f35db40ff7_bg.wasm');</script><script>(function () {
+<script type="module">import init from '/wordle-6ed23df11ca9d53b.js';init('/wordle-6ed23df11ca9d53b_bg.wasm');</script><script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;

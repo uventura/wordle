@@ -70,16 +70,20 @@ pub fn palavra_aleatoria() -> String {
 }
 
 fn ler_palavras_do_arquivo(file_path: &str) -> io::Result<Vec<String>> {
-    let file = File::open(file_path)?;
-    let reader = io::BufReader::new(file);
+    // let file = File::open(file_path)?;
+    // let reader = io::BufReader::new(file);
+    let file_path = "novaspalavras.txt";
+    let file = include_str!("novaspalavras.txt");
 
-    let mut words = Vec::new();
-    for line in reader.lines() {
-        let line = line?;
-        words.push(line);
-    }
+    let words = file.split_whitespace().map(str::to_string).collect();
+    // let mut words = Vec::new();
+    // for line in reader.lines() {
+    //     let line = line?;
+    //     words.push(line);
+    // }
 
     Ok(words)
+    // words
 }
 
 
