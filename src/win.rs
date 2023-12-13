@@ -16,7 +16,7 @@ pub fn win_screen(props: &Props) -> Html {
             <p><a href="index.html" class="button">{"Jogar novamente"}</a></p>
         </div>
     } else {
-        <div class="container">
+        <div class="win-container">
             <h1>{"Infelizmente nao foi desta vez!!"}</h1>
             <p>{"Falhou miseravelmente"}</p>
             <div class="tentativas">

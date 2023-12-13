@@ -112,6 +112,12 @@
             background-color: #333;
             padding: 20px;
             border-radius: 15px;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: sans-serif;
         }
         h1 {
             font-size: 2em;
@@ -140,6 +146,9 @@
             width: 30px;
             height: 30px;
             margin: 5px;
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
             border: 2px solid white;
             border-radius: 5px;
             background-color: rgb(255, 255, 255);
@@ -168,12 +177,12 @@
         } */
     </style>
 
-<link rel="preload" href="/wordle-6ed23df11ca9d53b_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/wordle-6ed23df11ca9d53b.js"></head>
+<link rel="preload" href="/wordle-729c0e7b00dda259_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/wordle-729c0e7b00dda259.js"></head>
 <body>
 
 
-<script type="module">import init from '/wordle-6ed23df11ca9d53b.js';init('/wordle-6ed23df11ca9d53b_bg.wasm');</script><script>(function () {
+<script type="module">import init from '/wordle-729c0e7b00dda259.js';init('/wordle-729c0e7b00dda259_bg.wasm');</script><script>(function () {
     var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     var url = protocol + '//' + window.location.host + '/_trunk/ws';
     var poll_interval = 5000;
