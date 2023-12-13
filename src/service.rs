@@ -14,7 +14,6 @@ pub fn validate_string(word: String, secret: String) -> [i8;5] {
                 println!("A palavra '{}' foi encontrada no arquivo.", word);
             } else {
                 println!("A palavra '{}' não foi encontrada no arquivo.", word);
-                return -1
             }
         },
         Err(e) => {
