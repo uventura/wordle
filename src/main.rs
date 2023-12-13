@@ -9,20 +9,26 @@ fn init_word() -> [char; 5] {
 fn App() -> Html {
     // let word: [char;5] = [char::default(),char::default(),char::default(),char::default(),char::default()];
     let word = use_state(|| init_word());
-    let words = use_state(|| [init_word(), init_word(),init_word(),init_word() ,init_word()]);
+    let words = use_state(|| [init_word(), init_word(),init_word(),init_word() ,init_word(),init_word()]);
 
     let line = use_state(|| 0);
+    let col = use_state(|| 0);
 
     let clonned_lie = line.clone();
     let clonned_words = words.clone();
     let onclick = Callback::from(move |letter: char| {
             // let mut word2 = [char::default(),char::default(),char::default(),char::default(),char::default()];
+            if *col > 4 {
+                return;
+            }
             let mut new_word = *clonned_words;
-            new_word[*clonned_lie][0] = letter;
+            new_word[*clonned_lie][*col] = letter;
 
-            let new_line =  line.clone();
-            line.set(*new_line+1);
-            log!(*line);
+            // let new_line =  line.clone();
+            // line.set(*new_line+1);
+            // log!(*line);
+            let next_col = col.clone();
+            col.set(*next_col+1);
 
             // log!(serde_json::to_string_pretty(&new_word).unwrap());
             clonned_words.set(new_word);
@@ -46,32 +52,32 @@ fn App() -> Html {
                 <div class="item">{words[1][4]}</div>
             </div>
             <div class="line">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item">{words[2][0]}</div>
+                <div class="item">{words[2][1]}</div>
+                <div class="item">{words[2][2]}</div>
+                <div class="item">{words[2][3]}</div>
+                <div class="item">{words[2][4]}</div>
             </div>
             <div class="line">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item">{words[3][0]}</div>
+                <div class="item">{words[3][1]}</div>
+                <div class="item">{words[3][2]}</div>
+                <div class="item">{words[3][3]}</div>
+                <div class="item">{words[3][4]}</div>
             </div>
             <div class="line">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item">{words[4][0]}</div>
+                <div class="item">{words[4][1]}</div>
+                <div class="item">{words[4][2]}</div>
+                <div class="item">{words[4][3]}</div>
+                <div class="item">{words[4][4]}</div>
             </div>
             <div class="line">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
+                <div class="item">{words[5][0]}</div>
+                <div class="item">{words[5][1]}</div>
+                <div class="item">{words[5][2]}</div>
+                <div class="item">{words[5][3]}</div>
+                <div class="item">{words[5][4]}</div>
             </div>
             <div class="keyboard">
                 <button onclick={let onclick = onclick.clone();move |_| onclick.emit('Q')} class="key-base key">{"Q"}</button>
