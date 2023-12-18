@@ -7,9 +7,13 @@ use std::sync::Mutex;
 
 mod service;
 mod win;
+mod keyboard;
+mod line;
 
 use service::*;
 use win::*;
+use keyboard::Keyboard;
+use line::Line;
 
 fn init_word() -> [char; 5] {
     return [char::default(),char::default(),char::default(),char::default(),char::default()];   
@@ -19,19 +23,17 @@ fn init_answers() -> [i8; 5] {
     return [-1,-1,-1,-1,-1];
 }
 
-// global variable
+/// Cria a palavra secreta como uma variável global
 lazy_static! {
     static ref SECRET: String = service::palavra_aleatoria().to_ascii_uppercase();
 }
 
+/// Inicializa os `useStates`, define os `callbacks` e renderiza o app
 #[function_component]
 fn App() -> Html {
-    // log!(secret.clone());
     log!(serde_json::to_string_pretty(&*SECRET).unwrap());
 
     let answers = use_state(|| [init_answers(),init_answers(),init_answers(),init_answers(),init_answers(),init_answers()]);
-
-    // keyboard array
     let words = use_state(|| [init_word(), init_word(),init_word(),init_word() ,init_word(),init_word()]);
 
     let win_status = use_state(|| false);
@@ -118,81 +120,18 @@ fn App() -> Html {
     });
 
     html! {
-    if {*game_is_running} {
+    if *game_is_running {
         <div class="container">
             <h1 class="title">{"Wordle"}</h1>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[0][0].to_string()}>{words[0][0]}</div>
-                <div class={"item item-".to_owned()+&answers[0][1].to_string()}>{words[0][1]}</div>
-                <div class={"item item-".to_owned()+&answers[0][2].to_string()}>{words[0][2]}</div>
-                <div class={"item item-".to_owned()+&answers[0][3].to_string()}>{words[0][3]}</div>
-                <div class={"item item-".to_owned()+&answers[0][4].to_string()}>{words[0][4]}</div>
-            </div>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[1][0].to_string()}>{words[1][0]}</div>
-                <div class={"item item-".to_owned()+&answers[1][1].to_string()}>{words[1][1]}</div>
-                <div class={"item item-".to_owned()+&answers[1][2].to_string()}>{words[1][2]}</div>
-                <div class={"item item-".to_owned()+&answers[1][3].to_string()}>{words[1][3]}</div>
-                <div class={"item item-".to_owned()+&answers[1][4].to_string()}>{words[1][4]}</div>
-            </div>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[2][0].to_string()}>{words[2][0]}</div>
-                <div class={"item item-".to_owned()+&answers[2][1].to_string()}>{words[2][1]}</div>
-                <div class={"item item-".to_owned()+&answers[2][2].to_string()}>{words[2][2]}</div>
-                <div class={"item item-".to_owned()+&answers[2][3].to_string()}>{words[2][3]}</div>
-                <div class={"item item-".to_owned()+&answers[2][4].to_string()}>{words[2][4]}</div>
-            </div>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[3][0].to_string()}>{words[3][0]}</div>
-                <div class={"item item-".to_owned()+&answers[3][1].to_string()}>{words[3][1]}</div>
-                <div class={"item item-".to_owned()+&answers[3][2].to_string()}>{words[3][2]}</div>
-                <div class={"item item-".to_owned()+&answers[3][3].to_string()}>{words[3][3]}</div>
-                <div class={"item item-".to_owned()+&answers[3][4].to_string()}>{words[3][4]}</div>
-            </div>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[4][0].to_string()}>{words[4][0]}</div>
-                <div class={"item item-".to_owned()+&answers[4][1].to_string()}>{words[4][1]}</div>
-                <div class={"item item-".to_owned()+&answers[4][2].to_string()}>{words[4][2]}</div>
-                <div class={"item item-".to_owned()+&answers[4][3].to_string()}>{words[4][3]}</div>
-                <div class={"item item-".to_owned()+&answers[4][4].to_string()}>{words[4][4]}</div>
-            </div>
-            <div class="line">
-                <div class={"item item-".to_owned()+&answers[5][0].to_string()}>{words[5][0]}</div>
-                <div class={"item item-".to_owned()+&answers[5][1].to_string()}>{words[5][1]}</div>
-                <div class={"item item-".to_owned()+&answers[5][2].to_string()}>{words[5][2]}</div>
-                <div class={"item item-".to_owned()+&answers[5][3].to_string()}>{words[5][3]}</div>
-                <div class={"item item-".to_owned()+&answers[5][4].to_string()}>{words[5][4]}</div>
-            </div>
-            <div class="keyboard">
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('Q')} class="key-base key">{"Q"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('W')} class="key-base key">{"W"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('E')} class="key-base key">{"E"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('R')} class="key-base key">{"R"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('T')} class="key-base key">{"T"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('Y')} class="key-base key">{"Y"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('U')} class="key-base key">{"U"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('I')} class="key-base key">{"I"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('O')} class="key-base key">{"O"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('P')} class="key-base key">{"P"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('A')} class="key-base key">{"A"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('S')} class="key-base key">{"S"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('D')} class="key-base key">{"D"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('F')} class="key-base key">{"F"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('G')} class="key-base key">{"G"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('H')} class="key-base key">{"H"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('J')} class="key-base key">{"J"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('K')} class="key-base key">{"K"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('L')} class="key-base key">{"L"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('Z')} class="key-base key">{"Z"}</button>
-                <button onclick={send_data} class="key-base key-enter">{"Enter"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('C')} class="key-base key">{"C"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('V')} class="key-base key">{"V"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('B')} class="key-base key">{"B"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('N')} class="key-base key">{"N"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('M')} class="key-base key">{"M"}</button>
-                <button onclick={let onclick = onclick.clone();move |_| onclick.emit('X')} class="key-base key">{"X"}</button>
-                <button onclick={erase} class="key-base key-enter">{"Rem"}</button>
-            </div>
+
+            <Line answers={answers[0]} words={words[0]} />
+            <Line answers={answers[1]} words={words[1]} />
+            <Line answers={answers[2]} words={words[2]} />
+            <Line answers={answers[3]} words={words[3]} />
+            <Line answers={answers[4]} words={words[4]} />
+            <Line answers={answers[5]} words={words[5]} />
+            
+            <Keyboard onclick={onclick} send_data={send_data} erase={erase} />
         </div>
     } else {
         <win::WinScreen win_status={*win_status} />
