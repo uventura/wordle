@@ -4,6 +4,7 @@ use std::io::{self, BufRead};
 use rand::seq::{SliceRandom, IteratorRandom};
 use rand::thread_rng;
 
+/// Verifica se a palavra escrita é igual ao segredo e retorna um array de valores sendo: 0 errado, 1 posição errada e 2 correto
 pub fn validate_string(word: String, secret: String) -> [i8;5] {
     let mut validated_word: [i8;5] = [-1,-1,-1,-1,-1];
 
@@ -32,6 +33,7 @@ pub fn validate_string(word: String, secret: String) -> [i8;5] {
     return validated_word;
 }
 
+/// Verifica se a palavra enviada existe na língua portuguesa
 fn verificar_palavra_existe(palavra: String) -> bool {
     let palavras = ler_palavras_do_arquivo("./novaspalavras.txt");
             // Faça algo com as palavras, por exemplo, imprimir
@@ -41,6 +43,7 @@ fn verificar_palavra_existe(palavra: String) -> bool {
         return false;
 }
 
+/// Gera uma palavra aleatória a partir de um arquivo com todas as palavras com 5 letras
 pub fn palavra_aleatoria() -> String {
     let file_path = "novaspalavras.txt";
     
@@ -69,6 +72,7 @@ pub fn palavra_aleatoria() -> String {
     }
 }
 
+/// Lê todas as palavras de um arquivo e retorna um vetor de strings
 fn ler_palavras_do_arquivo(file_path: &str) -> io::Result<Vec<String>> {
     // let file = File::open(file_path)?;
     // let reader = io::BufReader::new(file);

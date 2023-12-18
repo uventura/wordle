@@ -1,10 +1,12 @@
 use yew::prelude::*;
 
+/// Propriedade da `WinScreen`
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     pub win_status: bool
 }
 
+/// Seleciona entre a tela de vitória ou derrota de acordo com a propriedade `win_status` e a exibe
 #[function_component(WinScreen)]
 pub fn win_screen(props: &Props) -> Html {
 
